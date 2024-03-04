@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>带功能控件的地图</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="//cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="//webapi.amap.com/maps?v=2.0&key=b03c0fabcb3089acd1b047c5c6e29181&&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            height: 100%;
+        }
+        .input-card {
+            width: 150px;
+            top: 10px;
+            left: 10px;
+            bottom: auto;
+            position: absolute;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+    var scale = new AMap.Scale({
+        visible: true
+    }),
+    toolBar = new AMap.ToolBar({
+        visible: true,
+        position: {
+          top: '110px',
+          right: '40px'
+        }
+    }),
+    controlBar = new AMap.ControlBar({
+        visible: true,
+        position: {
+          top: '10px',
+          right: '10px'
+        }
+    }),
+    overView = new AMap.HawkEye({
+        visible: true
+    }),
+    map = new AMap.Map("container", {
+        zoom: 11,
+      center: [108.939645,34.343207],
+      defaultCursor: 'auto' // 禁用控件控制方框
+    });
+    map.addControl(scale);  //比例尺控件
+    map.addControl(toolBar);    //缩放控件
+    map.addControl(controlBar);     //控制罗盘控件
+    map.addControl(overView);
+    function toggleScale(checkbox) {
+        if (checkbox.checked) {
+            scale.show();
+        } else {
+            scale.hide();
+        }
+    }
+    function toggleToolBar(checkbox) {
+        if (checkbox.checked) {
+            showToolBar();
+        } else {
+            hideToolBar();
+        }
+    }
+    function toggleControlBar(checkbox) {
+        if (checkbox.checked) {
+            document.getElementById('controlBar').checked = true;
+            controlBar.show();
+        } else {
+            document.getElementById('controlBar').checked = false;
+            controlBar.hide();
+        }
+    }
+    function toggleOverViewShow(checkbox) {
+        if (checkbox.checked) {
+            overView.show();
+        } else {
+            overView.hide();
+        }
+    }
+    function showToolBar() {
+        document.getElementById('toolbar').checked = true;
+        toolBar.show();
+    }
+    function hideToolBar() {
+        document.getElementById('toolbar').checked = false;
+        toolBar.hide();
+    }
+    var path = [
+          [108.918221, 34.23574],
+          [108.918113, 34.235785],
+          [108.917834, 34.235908],
+          [108.917577, 34.236026],
+          [108.917024, 34.236278],
+          [108.916622, 34.236472],
+          [108.916386, 34.236558],
+          [108.915688, 34.236874],
+          [108.915152, 34.23711],
+          [108.914744, 34.237298],
+          [108.914605, 34.237357],
+          [108.913779, 34.237721]
+    ];
+
+
+    var polyline = new AMap.Polyline({
+      path: path,  // 设置折线的经纬度坐标数组
+      strokeColor: "#3366FF",  // 线颜色
+      strokeOpacity: 1,  // 线透明度
+      strokeWeight: 3,  // 线宽
+      strokeStyle: "solid",  // 线样式
+      strokeDasharray: [10, 5]  // 表示线的样式为虚线，[10, 5] 表示每10个像素实线，5个像素空白
+    });
+    map.add(polyline);  // 将折线添加至地图实例
+
+    // 将坐标串显示在地图上
+    for (var i = 0; i < path.length; i++) {
+      var marker = new AMap.Marker({
+        position: path[i],
+        map: map
+      });
+    }
+</script>
+</body>
+</html>
