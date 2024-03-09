@@ -21,43 +21,33 @@ def get_location_x_y(place):
     print(location)
     return location
 
-def path(from_location_POI, to_location_POI):
+def path(from_location_POI,to_location_POI):
+
     url = "https://restapi.amap.com/v3/direction/driving?"
+
     parameters = {
-        'key': '你的API密钥',
+        'key': '34a3919efd50bc3a8ed75ee6cf32069f',
         'origin': str(from_location_POI),
         'destination': str(to_location_POI),
         'output': 'json',
-        'strategy': '20',
+        'strategy':'20',
     }
     try:
         response = requests.get(url, params=parameters)
         data = json.loads(response.text)
-        if data['status'] == '1': # 确保请求成功
-            guidance = data['route']['paths'][0]['steps']
-            path = []
-            for i in guidance:
-                polyline = i['polyline']
-                for point in polyline.split(';'):
-                    lng, lat = point.split(',')
-                    path.append([float(lng), float(lat)])
-            return path
-        else:
-            return None
+        guidance = data['route']['paths'][0]['steps']
+        path = []
+        for i in guidance:
+            polyline = i['polyline']
+            for point in polyline.split(';'):
+                lng, lat = point.split(',')
+                path.append([float(lng), float(lat)])
+
+        return path
+
     except Exception as e:
         print(f"Error: {str(e)}")
-        return None # 发生异常时返回None
 
-def paths_from_origin_to_all_points(origin, allPointsList):
-    paths_dict = {}
-    for point in allPointsList:
-        if point == origin:
-            continue # 跳过起点自身
-        path = get_path(origin, point)
-        if path is not None:
-            paths_dict[point] = path # 以终点为key保存路径
-    print(paths_dict)
-    return paths_dict
 def html_path(path_data,start_point,approach_point,end_point):
     with open(template_html_path, 'r', encoding='utf-8') as file:
         html_content = file.read()

@@ -1,5 +1,5 @@
 from functions import  get_location_x_y, path, html_path, openHtml
-def main(start_location, end_location, start_point, approach_point, end_point,all_point):
+def main(start_location, end_location, start_point, approach_point, end_point):
 	path_data=path(start_location,end_location)
 	html_path(path_data,start_point,approach_point,end_point)
 	openHtml()
