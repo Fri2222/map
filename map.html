@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>带功能控件的地图</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="//cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="//webapi.amap.com/maps?v=2.0&key=b03c0fabcb3089acd1b047c5c6e29181&&plugin=AMap.Scale,AMap.HawkEye,AMap.ToolBar,AMap.ControlBar"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            height: 100%;
+        }
+        .input-card {
+            width: 150px;
+            top: 10px;
+            left: 10px;
+            bottom: auto;
+            position: absolute;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="height: 1000px; width: 100%;"></div>
+<script>
+    var scale = new AMap.Scale({
+        visible: true
+    }),
+    toolBar = new AMap.ToolBar({
+        visible: true,
+        position: {
+          top: '110px',
+          right: '40px'
+        }
+    }),
+    controlBar = new AMap.ControlBar({
+        visible: true,
+        position: {
+          top: '10px',
+          right: '10px'
+        }
+    }),
+    overView = new AMap.HawkEye({
+        visible: true
+    }),
+    map = new AMap.Map("container", {
+        zoom: 11,
+      center: [108.939645,34.343207],
+      defaultCursor: 'auto' // 禁用控件控制方框
+    });
+    map.addControl(scale);  //比例尺控件
+    map.addControl(toolBar);    //缩放控件
+    map.addControl(controlBar);     //控制罗盘控件
+    map.addControl(overView);
+    function toggleScale(checkbox) {
+        if (checkbox.checked) {
+            scale.show();
+        } else {
+            scale.hide();
+        }
+    }
+    function toggleToolBar(checkbox) {
+        if (checkbox.checked) {
+            showToolBar();
+        } else {
+            hideToolBar();
+        }
+    }
+    function toggleControlBar(checkbox) {
+        if (checkbox.checked) {
+            document.getElementById('controlBar').checked = true;
+            controlBar.show();
+        } else {
+            document.getElementById('controlBar').checked = false;
+            controlBar.hide();
+        }
+    }
+    function toggleOverViewShow(checkbox) {
+        if (checkbox.checked) {
+            overView.show();
+        } else {
+            overView.hide();
+        }
+    }
+    function showToolBar() {
+        document.getElementById('toolbar').checked = true;
+        toolBar.show();
+    }
+    function hideToolBar() {
+        document.getElementById('toolbar').checked = false;
+        toolBar.hide();
+    }
+
+    var path = [
+    new AMap.LngLat(109.016027, 34.290182),
+    new AMap.LngLat(109.01603, 34.290105),
+    new AMap.LngLat(109.016019, 34.289971),
+    new AMap.LngLat(109.015976, 34.289478),
+    new AMap.LngLat(109.015923, 34.289215),
+    new AMap.LngLat(109.015869, 34.288887),
+    new AMap.LngLat(109.015799, 34.288743),
+    new AMap.LngLat(109.015783, 34.28833),
+    new AMap.LngLat(109.015783, 34.288238),
+    new AMap.LngLat(109.015761, 34.287997),
+    new AMap.LngLat(109.015761, 34.287997),
+    new AMap.LngLat(109.014898, 34.287997),
+    new AMap.LngLat(109.014785, 34.288002),
+    new AMap.LngLat(109.014351, 34.288008),
+    new AMap.LngLat(109.013203, 34.288002),
+    new AMap.LngLat(109.011974, 34.287997),
+    new AMap.LngLat(109.010746, 34.288002),
+    new AMap.LngLat(109.010714, 34.288002),
+    new AMap.LngLat(109.009582, 34.288008),
+    new AMap.LngLat(109.009437, 34.288008),
+    new AMap.LngLat(109.008214, 34.287997),
+    new AMap.LngLat(109.007533, 34.287997),
+    new AMap.LngLat(109.006991, 34.287997),
+    new AMap.LngLat(109.006347, 34.287991),
+    new AMap.LngLat(109.006052, 34.287986),
+    new AMap.LngLat(109.005709, 34.287986),
+    new AMap.LngLat(109.005017, 34.287975),
+    new AMap.LngLat(109.004893, 34.287975),
+    new AMap.LngLat(109.004545, 34.287965),
+    new AMap.LngLat(109.004089, 34.287922),
+    new AMap.LngLat(109.003477, 34.287809),
+    new AMap.LngLat(109.003273, 34.28775),
+    new AMap.LngLat(109.002651, 34.287541),
+    new AMap.LngLat(109.002388, 34.287434),
+    new AMap.LngLat(109.001701, 34.287144),
+    new AMap.LngLat(109.001219, 34.286961),
+    new AMap.LngLat(109.00065, 34.286763),
+    new AMap.LngLat(109.000183, 34.286608),
+    new AMap.LngLat(108.999727, 34.286463),
+    new AMap.LngLat(108.999438, 34.286371),
+    new AMap.LngLat(108.999363, 34.286345),
+    new AMap.LngLat(108.998853, 34.286162),
+    new AMap.LngLat(108.998853, 34.286162),
+    new AMap.LngLat(108.997807, 34.285803),
+    new AMap.LngLat(108.995532, 34.285052),
+    new AMap.LngLat(108.993311, 34.284328),
+    new AMap.LngLat(108.992754, 34.284145),
+    new AMap.LngLat(108.992142, 34.283974),
+    new AMap.LngLat(108.991289, 34.283738),
+    new AMap.LngLat(108.990495, 34.283491),
+    new AMap.LngLat(108.990307, 34.283426),
+    new AMap.LngLat(108.989605, 34.283196),
+    new AMap.LngLat(108.989106, 34.28303),
+    new AMap.LngLat(108.988483, 34.282799),
+    new AMap.LngLat(108.987416, 34.282337),
+    new AMap.LngLat(108.987416, 34.282337),
+    new AMap.LngLat(108.986799, 34.282069),
+    new AMap.LngLat(108.985796, 34.281635),
+    new AMap.LngLat(108.98571, 34.281597),
+    new AMap.LngLat(108.985286, 34.281409),
+    new AMap.LngLat(108.984814, 34.281216),
+    new AMap.LngLat(108.984632, 34.281136),
+    new AMap.LngLat(108.98423, 34.28097),
+    new AMap.LngLat(108.983183, 34.280508),
+    new AMap.LngLat(108.982309, 34.280143),
+    new AMap.LngLat(108.98122, 34.279677),
+    new AMap.LngLat(108.980855, 34.279526),
+    new AMap.LngLat(108.979938, 34.27913),
+    new AMap.LngLat(108.979777, 34.279054),
+    new AMap.LngLat(108.979675, 34.279011),
+    new AMap.LngLat(108.979106, 34.278754),
+    new AMap.LngLat(108.978844, 34.278604),
+    new AMap.LngLat(108.978538, 34.278395),
+    new AMap.LngLat(108.978254, 34.278169),
+    new AMap.LngLat(108.978162, 34.278089),
+    new AMap.LngLat(108.977508, 34.277552),
+    new AMap.LngLat(108.977508, 34.277552),
+    new AMap.LngLat(108.976751, 34.277531),
+    new AMap.LngLat(108.975233, 34.277526),
+    new AMap.LngLat(108.975233, 34.277526),
+    new AMap.LngLat(108.975046, 34.277504),
+    new AMap.LngLat(108.972616, 34.27737),
+    new AMap.LngLat(108.971827, 34.277343),
+    new AMap.LngLat(108.970615, 34.2773),
+    new AMap.LngLat(108.97017, 34.277279),
+    new AMap.LngLat(108.969472, 34.27722),
+    new AMap.LngLat(108.969231, 34.277182),
+    new AMap.LngLat(108.968989, 34.27715),
+    new AMap.LngLat(108.968405, 34.27708),
+    new AMap.LngLat(108.967514, 34.276968),
+    new AMap.LngLat(108.967514, 34.276968),
+    new AMap.LngLat(108.966972, 34.276903),
+    new AMap.LngLat(108.966575, 34.276871),
+    new AMap.LngLat(108.965486, 34.276828),
+    new AMap.LngLat(108.965486, 34.276828),
+    new AMap.LngLat(108.965234, 34.276828),
+    new AMap.LngLat(108.962874, 34.276791),
+    new AMap.LngLat(108.962402, 34.276785),
+    new AMap.LngLat(108.960723, 34.276764),
+    new AMap.LngLat(108.960385, 34.276775),
+    new AMap.LngLat(108.958062, 34.276887),
+    new AMap.LngLat(108.957166, 34.27693),
+    new AMap.LngLat(108.957166, 34.27693),
+    new AMap.LngLat(108.95627, 34.276978),
+    new AMap.LngLat(108.955632, 34.276984),
+    new AMap.LngLat(108.954951, 34.276973),
+    new AMap.LngLat(108.95458, 34.276968),
+    new AMap.LngLat(108.954301, 34.276962),
+    new AMap.LngLat(108.954001, 34.276957),
+    new AMap.LngLat(108.953524, 34.276946),
+    new AMap.LngLat(108.952692, 34.276935),
+    new AMap.LngLat(108.951566, 34.276935),
+    new AMap.LngLat(108.950461, 34.27693),
+    new AMap.LngLat(108.949828, 34.276941),
+    new AMap.LngLat(108.949425, 34.276989),
+    new AMap.LngLat(108.949001, 34.277102),
+    new AMap.LngLat(108.948325, 34.277343),
+    new AMap.LngLat(108.948213, 34.277381),
+    new AMap.LngLat(108.947907, 34.27744),
+    new AMap.LngLat(108.947757, 34.277456),
+    new AMap.LngLat(108.947365, 34.277456),
+    new AMap.LngLat(108.94728, 34.277456),
+    new AMap.LngLat(108.945338, 34.27745),
+    new AMap.LngLat(108.945101, 34.277434),
+    new AMap.LngLat(108.944747, 34.27737),
+    new AMap.LngLat(108.944661, 34.277343),
+    new AMap.LngLat(108.94456, 34.277311),
+    new AMap.LngLat(108.943868, 34.277016),
+    new AMap.LngLat(108.943691, 34.276957),
+    new AMap.LngLat(108.943347, 34.276882),
+    new AMap.LngLat(108.942907, 34.276844),
+    new AMap.LngLat(108.942205, 34.276828),
+    new AMap.LngLat(108.941191, 34.276812),
+    new AMap.LngLat(108.940756, 34.276817),
+    new AMap.LngLat(108.940429, 34.276823),
+    new AMap.LngLat(108.940209, 34.276817),
+    new AMap.LngLat(108.937398, 34.276764),
+    new AMap.LngLat(108.937398, 34.276764),
+    new AMap.LngLat(108.933251, 34.276716),
+    new AMap.LngLat(108.932844, 34.276716),
+    new AMap.LngLat(108.92984, 34.276673),
+    new AMap.LngLat(108.928869, 34.276673),
+    new AMap.LngLat(108.928429, 34.276662),
+    new AMap.LngLat(108.927989, 34.276662),
+    new AMap.LngLat(108.927608, 34.276656),
+    new AMap.LngLat(108.926476, 34.27664),
+    new AMap.LngLat(108.925307, 34.276624),
+    new AMap.LngLat(108.924599, 34.276619),
+    new AMap.LngLat(108.924341, 34.276619),
+    new AMap.LngLat(108.924341, 34.276619),
+    new AMap.LngLat(108.923381, 34.276608),
+    new AMap.LngLat(108.922608, 34.276603),
+    new AMap.LngLat(108.922147, 34.276592),
+    new AMap.LngLat(108.921991, 34.276581),
+    new AMap.LngLat(108.921873, 34.276555),
+    new AMap.LngLat(108.921782, 34.276522),
+    new AMap.LngLat(108.921696, 34.276474),
+    new AMap.LngLat(108.921632, 34.276415),
+    new AMap.LngLat(108.921589, 34.276356),
+    new AMap.LngLat(108.921552, 34.276276),
+    new AMap.LngLat(108.92152, 34.276195),
+    new AMap.LngLat(108.921514, 34.276147),
+    new AMap.LngLat(108.921514, 34.275997),
+    new AMap.LngLat(108.921503, 34.275857),
+    new AMap.LngLat(108.921514, 34.27561),
+    new AMap.LngLat(108.92153, 34.275562),
+    new AMap.LngLat(108.921573, 34.275476),
+    new AMap.LngLat(108.921632, 34.275401),
+    new AMap.LngLat(108.921766, 34.275278),
+    new AMap.LngLat(108.921916, 34.27516),
+    new AMap.LngLat(108.922024, 34.275074),
+    new AMap.LngLat(108.922169, 34.27494),
+    new AMap.LngLat(108.922271, 34.274822),
+    new AMap.LngLat(108.922362, 34.274752),
+    new AMap.LngLat(108.922367, 34.274409),
+    new AMap.LngLat(108.922367, 34.274135),
+    new AMap.LngLat(108.922378, 34.273497),
+    new AMap.LngLat(108.922378, 34.273497),
+    new AMap.LngLat(108.921927, 34.273486),
+    new AMap.LngLat(108.921546, 34.273481),
+    new AMap.LngLat(108.921192, 34.273475),
+    new AMap.LngLat(108.920886, 34.273475),
+    new AMap.LngLat(108.920672, 34.273422),
+    new AMap.LngLat(108.920533, 34.273406),
+    new AMap.LngLat(108.920323, 34.273384),
+    new AMap.LngLat(108.919438, 34.273379),
+    new AMap.LngLat(108.919223, 34.273373),
+    new AMap.LngLat(108.919223, 34.273373),
+    new AMap.LngLat(108.919223, 34.273513),
+    new AMap.LngLat(108.919207, 34.273679),
+    new AMap.LngLat(108.919207, 34.273679),
+    new AMap.LngLat(108.919286, 34.273683),
+                   //被替换的路径信息
+    ];
+    var polyline = new AMap.Polyline({
+      path: path,  // 设置折线的经纬度坐标数组
+      strokeColor: "#3366FF",  // 线颜色
+      strokeOpacity: 1,  // 线透明度
+      strokeWeight: 5,  // 线宽
+      lineJoin: "round", //折线拐点连接处样式
+      strokeDasharray: [10, 5]  // 表示线的样式为虚线，[10, 5] 表示每10个像素实线，5个像素空白
+    });
+    map.add(polyline);  // 将折线添加至地图实例
+
+        // 以 icon URL 的形式创建一个途经点
+    var viaMarker = new AMap.Marker({
+        position: new AMap.LngLat(108.939645,34.343207),
+        // 将一张图片的地址设置为 icon
+        icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png',
+        // 设置了 icon 以后，设置 icon 的偏移量，以 icon 的 [center bottom] 为原点
+        offset: new AMap.Pixel(-13, -30)
+    });
+    //标记途径点
+    AMap.plugin("AMap.DragRoute", function () {
+      //path 是驾车导航的起、途径和终点，最多支持16个途经点
+      var path = [];
+    path.push([109.015868, 34.290179]);
+
+    path.push([108.919276, 34.273832]);
+    path.push([108.919276, 34.273832]);
+    path.push([109.015868, 34.290179]);
+    path.push([109.015868, 34.290179]);
+
+    path.push([108.919276, 34.273832]);
+
+
+      var route = new AMap.DragRoute(map, path, 0);
+      //查询导航路径并开启拖拽导航
+      route.search();
+    });
+
+    // 以 icon URL 的形式创建一个途经点
+    var viaMarker = new AMap.Marker({
+        position: new AMap.LngLat(108.939645,34.343207),
+        // 将一张图片的地址设置为 icon
+        icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png',
+        // 设置了 icon 以后，设置 icon 的偏移量，以 icon 的 [center bottom] 为原点
+        offset: new AMap.Pixel(-13, -30)
+    });
+</script>
+</body>
+</html>
